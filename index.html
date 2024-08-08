@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SSE Exemplo</title>
+  </head>
+  <body>
+    <h1>Pessoas:</h1>
+    <div>
+      <p style="font-size: 40px" id="message"></p>
+    </div>
+
+    <script>
+      const eventSource = new EventSource("http://localhost:8000/events");
+
+      eventSource.onmessage = function (event) {
+        // const newElement = document.createElement("div");
+        // newElement.textContent = event.data;
+        // document.getElementById("message").appendChild(newElement);
+        const message_sse = event.data;
+        console.log(message_sse);
+        document.getElementById("message").innerHTML = message_sse;
+      };
+
+      eventSource.onerror = function () {
+        console.error("EventSource falhou.");
+        document.getElementById("message").innerHTML = "-";
+      };
+    </script>
+  </body>
+</html>
